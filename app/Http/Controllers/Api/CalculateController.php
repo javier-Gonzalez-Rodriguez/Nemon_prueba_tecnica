@@ -51,13 +51,55 @@ class CalculateController extends Controller
                     return response()->json(['Error' => 'Dates range not valid'],404);
                 }
 
-                //resultado de aplicar la formula
-                $price_indexed = $expression->evaluate($request->formula, [
-                    //'salario' => 2000,
-                    //'bono' => 500,
-                ]);
+                $columnas = [];
 
-                //TODO PAGINA 4 DE LA PRUEBA
+                for ($i = 1; $i <= 25; $i++) {
+                    $columnas[] = "SUM(h{$i})";
+                }
+                
+
+
+
+                $datos_precios = Prices::whereBetween('date', [
+                    $request->start_date,
+                    $request->end_date,
+                ])->get();
+
+
+
+
+                $consumption_value  = 0;
+
+
+                $formula_lista = str_replace(['[', ']'], '', $request->formula);
+                $suma_importes = 0;
+
+                foreach($datos_precios as $value){
+                    foreach(json_decode($value) as $key => $precio){
+                        if($key != 'date'){
+                            //sumatoria de importe hora
+                            $suma_importes += $expression->evaluate($formula_lista, [
+                                'OMIE_MD' => $precio,
+                            ]);
+                        }
+                    }
+
+                }
+
+                $suma_consumos = Consumptions::whereBetween('date', [
+                    $request->start_date,
+                    $request->end_date,
+                ])->selectRaw(
+                    implode(' + ', $columnas) . 'as total'
+                )->value('total');
+
+
+                //NOTA: no se a cuantos decimales se deberia de redondear
+                $price_indexed = $suma_importes / $suma_consumos;
+
+                //si se quisiera rendondear descomentar siguente linea la cual redondeará a 2 decimales
+                //$price_indexed = round($price_indexed, 2);
+
             }catch(Exception $e){
                 Log::error('Error al evaluar expresion', [
                     'mensaje' => $e->getMessage(),

@@ -3,9 +3,8 @@ import '../css/app.css';
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 
-import { useState } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import axios from 'axios';
-
 
 function App() {
     //guarda los resultados de las operaciones previsas del usuario
@@ -23,10 +22,6 @@ function App() {
 
     //si no existe alguna fecha en el rango especificado entonces se pone rojo solo el texto de la fecha
     const [formErrorDates, setErrorDates] = useState(false);
-
-    //array de valores que el usuario puede visualizar
-    const [consumptions, setConsumptions] = useState([]);
-    const [prices, setPrices]             = useState([]);
 
     /**
      * actualiza los datos del formulario cuando el usuario realiza una modificación
@@ -64,10 +59,9 @@ function App() {
                 formula: ''
             });
 
+            setError(false);
+            setErrorDates(false);
         }catch(error){
-            console.error(error);
-            console.error(error.status);
-
             if(error.status == 400){
                 setError(true);
             }else if(error.status == 404){
@@ -90,10 +84,20 @@ function App() {
                 }
             </div>
 
-
             <div className="calculator-card-container">
                 <form onSubmit={calculate} className="calculator-card">
                     <div className="formula-column-container" id="card-preview">
+                        <div>
+                            <a href="/dataviewer" target="_blank">
+                                <svg width="20px" height="20px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M12 17V11" stroke="#1C274C" stroke-width="1.5" stroke-linecap="round"/>
+                                    <circle cx="1" cy="1" r="1" transform="matrix(1 0 0 -1 11 9)" fill="#1C274C"/>
+                                    <path d="M7 3.33782C8.47087 2.48697 10.1786 2 12 2C17.5228 2 22 6.47715 22 12C22 17.5228 17.5228 22 12 22C6.47715 22 2 17.5228 2 12C2 10.1786 2.48697 8.47087 3.33782 7" stroke="#1C274C" stroke-width="1.5" stroke-linecap="round"/>
+                                </svg>
+                                Consult prices
+                            </a>
+                            
+                        </div>
                         <div><span className={formError ? 'error-title' : ''}>Formula</span>*</div>
                         <input type="text" name="formula" id="form-formula" onChange={handleChange} value={form.formula} />
                     </div>

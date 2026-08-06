@@ -65,7 +65,7 @@ body {
     background-color: var(--card-background);
     border-radius: 25px;
     padding: 20px;
-    grid-template-rows: 70px 80px;
+    grid-template-rows: 100px 80px;
     box-shadow: -4px 5px 11px 0px;
 }
 
@@ -190,4 +190,14 @@ h1{
     .operator-legend .valid-operator-container{
         grid-template-columns: 1fr;
     }
+}
+
+a{
+    display: flex;
+    gap: 5px;
+    align-items: center;
+}
+
+a:hover{
+    color: rgba(0, 0, 255, 0.637);
 }

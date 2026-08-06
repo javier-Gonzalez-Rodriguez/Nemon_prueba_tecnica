@@ -1,0 +1,99 @@
+:root{
+    --result-content-background: white;
+    --box-shadow-inset: inset 0 0 6px black;
+    --box-shadow-outset: 2px 4px 6px black;
+}
+
+.prices-page{
+    padding: 20px;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+.prices-table-scroll{
+    overflow-x: auto;
+    background-color: white;
+    box-shadow: var(--box-shadow-inset);
+    border-radius: 8px;
+    height: 90vh;
+}
+
+.sticky-header{
+    position: sticky;
+    top: 0;
+    background: #fff;
+    z-index: 10;
+    border-bottom: 1px solid #ccc;
+}
+
+.prices-table{
+    border-collapse: collapse;
+    width: 100%;
+    min-width: 1400px;
+    font-size: 0.85rem;
+}
+.prices-table tr {
+    display: grid;
+    grid-template-columns: repeat(26, 1fr);
+}
+
+.prices-table th,
+.prices-table td{
+    padding: 6px 10px;
+    text-align: right;
+    white-space: nowrap;
+    border-bottom: solid 0.5px #ccc;
+}
+
+.prices-table th{
+    background-color: var(--result-content-background);
+    position: sticky;
+    top: 0;
+    z-index: 1;
+    text-align: center;
+}
+
+.prices-table .col-id,
+.prices-table .col-date{
+    text-align: center;
+}
+
+.prices-table .col-sticky{
+    position: sticky;
+    background-color: white;
+    z-index: 2;
+}
+
+.prices-table thead .col-sticky{
+    z-index: 3;
+    background-color: var(--result-content-background);
+}
+
+.prices-table .col-id{
+    left: 0;
+    min-width: 60px;
+}
+
+.prices-table .col-date{
+    left: 0px;
+    min-width: 110px;
+    box-shadow: 2px 0 4px -2px rgba(0,0,0,0.3);
+}
+
+
+.tab-container{
+    display: flex;
+    flex-direction: row;
+}
+
+.tab-container .tab{
+    max-width: 100px;
+    padding: 10px;
+    border: solid 0.5px;
+    border-bottom: solid 2px;
+    cursor: pointer;
+}
+
+.tab-container .tab.open{
+    box-shadow: var(--box-shadow-inset);
+}

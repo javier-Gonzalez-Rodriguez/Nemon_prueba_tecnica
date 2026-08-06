@@ -9,7 +9,10 @@ export default defineConfig({
         laravel({
             input: [
                 'resources/css/app.css', 
-                'resources/js/app.jsx'
+                'resources/js/app.jsx',
+
+                
+                'resources/css/bd_data_viewer.css', 
             ],
             refresh: true,
             fonts: [
