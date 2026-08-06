@@ -15,7 +15,9 @@ return new class extends Migration
             $table->id();
             $table->date('date')->unique();
             //Consumo de energía en kWh por cada hora del día
-            $table->double('h1_h25');
+            for ($i = 1; $i <= 25; $i++) {
+                $table->double("h{$i}");
+            }
             $table->timestamps();
         });
     }

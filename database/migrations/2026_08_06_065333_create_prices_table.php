@@ -15,7 +15,9 @@ return new class extends Migration
             $table->id();
             $table->date('date')->unique();
             //Precio de energía en €/kWh para cada hora del día
-            $table->double('h1_h25');
+            for ($i = 1; $i <= 25; $i++) {
+                $table->double("h{$i}");
+            }
             $table->timestamps();
         });
     }
