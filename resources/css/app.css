@@ -201,3 +201,29 @@ a{
 a:hover{
     color: rgba(0, 0, 255, 0.637);
 }
+
+
+.btn-calculate {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+
+.btn-calculate .spinner {
+    display: none;
+    width: 18px;
+    height: 18px;
+    animation: spin 0.8s linear infinite;
+}
+
+.btn-calculate.open .spinner{
+    display: block;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}

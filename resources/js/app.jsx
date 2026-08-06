@@ -10,6 +10,8 @@ function App() {
     //guarda los resultados de las operaciones previsas del usuario
     const [results, setResults] = useState([]);
 
+    const [loading, setLoading] = useState(false);
+
     //contiene los datos del formulario
     const [form, setForm] = useState({
         start_date: '',
@@ -40,6 +42,12 @@ function App() {
      */
     const calculate = async (e) => {
         e.preventDefault();
+
+        //bloquear hasta que backend responda
+        if(loading) return
+
+        setLoading(true);
+
         try{
             const request = await axios.post('/api/calculate', form);
 
@@ -67,6 +75,8 @@ function App() {
             }else if(error.status == 404){
                 setErrorDates(true);
             }
+        }finally{
+            setLoading(false);
         }
     };
 
@@ -90,9 +100,9 @@ function App() {
                         <div>
                             <a href="/dataviewer" target="_blank">
                                 <svg width="20px" height="20px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M12 17V11" stroke="#1C274C" stroke-width="1.5" stroke-linecap="round"/>
+                                    <path d="M12 17V11" stroke="#1C274C" strokeWidth="1.5" strokeLinecap="round"/>
                                     <circle cx="1" cy="1" r="1" transform="matrix(1 0 0 -1 11 9)" fill="#1C274C"/>
-                                    <path d="M7 3.33782C8.47087 2.48697 10.1786 2 12 2C17.5228 2 22 6.47715 22 12C22 17.5228 17.5228 22 12 22C6.47715 22 2 17.5228 2 12C2 10.1786 2.48697 8.47087 3.33782 7" stroke="#1C274C" stroke-width="1.5" stroke-linecap="round"/>
+                                    <path d="M7 3.33782C8.47087 2.48697 10.1786 2 12 2C17.5228 2 22 6.47715 22 12C22 17.5228 17.5228 22 12 22C6.47715 22 2 17.5228 2 12C2 10.1786 2.48697 8.47087 3.33782 7" stroke="#1C274C" strokeWidth="1.5" strokeLinecap="round"/>
                                 </svg>
                                 Consult prices
                             </a>
@@ -113,7 +123,28 @@ function App() {
                         </div>
                     </div>
 
-                    <button type='submit'>CALCULATE</button>
+                    <button type='submit' className={loading ? 'btn-calculate open' : 'btn-calculate'}>
+                        CALCULATE
+
+                        <svg
+                            className="spinner"
+                            viewBox="0 0 24 24"
+                            aria-hidden="true"
+                            width="20px"
+                            height="20px"
+                        >
+                            <circle
+                                cx="12"
+                                cy="12"
+                                r="10"
+                                fill="none"
+                                stroke="currentColor"
+                                strokeWidth={3}
+                                strokeLinecap="round"
+                                strokeDasharray="50 20"
+                            />
+                        </svg>
+                    </button>
 
                     <div className="operator-legend">
                         <span>Operator legend</span>
