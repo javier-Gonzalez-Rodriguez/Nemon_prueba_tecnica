@@ -96,8 +96,8 @@ Calcula el precio indexado para un rango de fechas utilizando una fórmula confi
 
 ```json
 {
-    "start_date": "2024-01-01",
-    "end_date": "2024-01-31",
+    "start_date": "2025-01-01",
+    "end_date": "2025-01-0",
     "formula": "[OMIE_MD] * 1.05 + 0.02"
 }
 ```
@@ -106,7 +106,7 @@ Calcula el precio indexado para un rango de fechas utilizando una fórmula confi
 
 ```json
 {
-    "price": 0.13241
+    "price": 0.06626...
 }
 ```
 
@@ -137,23 +137,6 @@ Se sustituye el valor del marcador:
 
 por el precio correspondiente a esa hora.
 
-Ejemplo:
-
-```
-([OMIE_MD] * 1.05) + 0.02
-```
-
-Si el precio horario es:
-
-```
-0.087 €/kWh
-```
-
-la expresión evaluada será:
-
-```
-(0.087 * 1.05) + 0.02
-```
 
 ---
 
@@ -185,28 +168,6 @@ suma_consumos = Σ consumo_hora
 
 ```
 precio_indexado = suma_importes / suma_consumos
-```
-
----
-
-# Estructura del proyecto
-
-```
-project
-│
-├── backend/
-│   ├── app/
-│   ├── routes/
-│   ├── database/
-│   └── ...
-│
-├── frontend/
-│   ├── src/
-│   ├── components/
-│   ├── services/
-│   └── ...
-│
-└── README.md
 ```
 
 ---
