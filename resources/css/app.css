@@ -8,3 +8,115 @@
         'Segoe UI Symbol', 'Noto Color Emoji';
 }
 
+:root{
+    --page-background: #E0F2FE;
+    --result-content-background: #8fbeb4;
+    --card-background: #e6a120bb;
+
+    --box-shadow-inset: inset 0 0 6px black;
+    --box-shadow-outset: 2px 4px 6px black;
+}
+
+
+
+
+.calculator-body{
+    background-color: var(--page-background);
+    height: 100vh;
+    display: flex;
+}
+
+.calculator-body .results-viewer{
+    background-color: var(--result-content-background);
+    height: 100%;
+    width: 300px;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.calculator-body .calculator-card-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: stretch;
+}
+
+.calculator-body .calculator-card-container .calculator-card{
+    display: grid;
+    width: 500px;
+    height: 320px;
+    background-color: var(--card-background);
+    border-radius: 25px;
+    padding: 20px;
+    grid-template-rows: 70px 80px;
+    box-shadow: -4px 5px 11px 0px;
+}
+
+.calculator-body .calculator-card-container .calculator-card .form-preview{
+    background-color: white;
+    box-shadow: var(--box-shadow-inset);
+}
+
+.row-container{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+
+.date-input-column, .formula-column-container{
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 10px;
+}
+
+.row-container span, .formula-column-container span{
+    text-decoration: underline;
+}
+
+input[type=date], input[type=text]{
+    background-color: white;
+    box-shadow: var(--box-shadow-inset);
+    padding: 5px;
+}
+
+form button[type=submit]{
+    background-color: white;
+    max-height: 50px;
+    box-shadow: var(--box-shadow-outset);
+    transition: box-shadow 0.5s;
+    cursor: pointer;
+}
+
+form button[type=submit]:hover{
+    box-shadow: var(--box-shadow-inset);
+}
+
+.operator-legend{
+    margin: 5px;
+    display: flex;
+    flex-direction: column;
+}
+
+.operator-legend > span{
+    font-weight: bold;
+    text-decoration: underline;
+}
+
+.operator-legend .valid-operator-container{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+}
+
+.results-viewer .preview-item{
+    display: flex;
+    flex-direction: column;
+    border-bottom: solid 0.5px black;
+}
+
+.error-title{
+    color: red;
+}
