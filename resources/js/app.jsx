@@ -70,6 +70,7 @@ function App() {
     return (
         <div className="calculator-body">
             <div className="results-viewer">
+                <h1>RESULTS</h1>
                 {results.map((result, index) => (
                             <div className="preview-item" key={index}>
                                 <span>{result.start_date} - {result.end_date}</span>

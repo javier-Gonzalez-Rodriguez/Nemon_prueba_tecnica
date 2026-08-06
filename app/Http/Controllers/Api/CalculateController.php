@@ -39,6 +39,8 @@ class CalculateController extends Controller
                     //'salario' => 2000,
                     //'bono' => 500,
                 ]);
+
+                //TODO PAGINA 4 DE LA PRUEBA
             }catch(Exception $e){
                 Log::error('Error al evaluar expresion', [
                     'mensaje' => $e->getMessage(),
