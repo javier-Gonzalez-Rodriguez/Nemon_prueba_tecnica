@@ -21,6 +21,13 @@ function App() {
     //si el formulario contiene un error entonces error = true y cambia el color de los titulos a rojo
     const [formError, setError] = useState(false);
 
+    //si no existe alguna fecha en el rango especificado entonces se pone rojo solo el texto de la fecha
+    const [formErrorDates, setErrorDates] = useState(false);
+
+    //array de valores que el usuario puede visualizar
+    const [consumptions, setConsumptions] = useState([]);
+    const [prices, setPrices]             = useState([]);
+
     /**
      * actualiza los datos del formulario cuando el usuario realiza una modificación
      * @param {Event} e 
@@ -63,6 +70,8 @@ function App() {
 
             if(error.status == 400){
                 setError(true);
+            }else if(error.status == 404){
+                setErrorDates(true);
             }
         }
     };
@@ -91,11 +100,11 @@ function App() {
 
                     <div className="row-container">
                         <div className="date-input-column">
-                            <div><span className={formError ? 'error-title' : ''}>Start date</span>*</div>
+                            <div><span className={(formError || formErrorDates) ? 'error-title' : ''}>Start date</span>*</div>
                             <input type="date" name="start_date" id="form-start-date" onChange={handleChange} max={(form.end_date) || undefined} value={form.start_date} />
                         </div>
                         <div className="date-input-column">
-                            <div><span className={formError ? 'error-title' : ''}>End date</span>*</div>
+                            <div><span className={(formError || formErrorDates) ? 'error-title' : ''}>End date</span>*</div>
                             <input type="date" name="end_date" id="form-end-date" onChange={handleChange} min={(form.start_date) || undefined} value={form.end_date} />
                         </div>
                     </div>

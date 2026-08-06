@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Symfony\Component\ExpressionLanguage\ExpressionLanguage;
+use Carbon\Carbon;
 use Throwable;
 use Exception;
 
@@ -30,9 +31,25 @@ class CalculateController extends Controller
                 if($request->start_date == null || $request->end_date == null){
                     throw new Exception('Invalid date');
                 }
-                /*if(...){
+
+                $dates_range_validator_prices = Prices::whereBetween('date', [
+                    $request->start_date,
+                    $request->end_date,
+                ])->pluck('date');
+
+                $dates_range_validator_consumptions = Consumptions::whereBetween('date', [
+                    $request->start_date,
+                    $request->end_date,
+                ])->pluck('date');
+
+                $inicio = Carbon::parse($request->start_date);
+                $fin    = Carbon::parse($request->end_date);
+
+                $expectedDays = $inicio->diffInDays($fin) + 1;
+
+                if($dates_range_validator_prices->count() != $expectedDays || $dates_range_validator_consumptions->count() != $expectedDays){
                     return response()->json(['Error' => 'Dates range not valid'],404);
-                }*/
+                }
 
                 //resultado de aplicar la formula
                 $price_indexed = $expression->evaluate($request->formula, [
@@ -55,6 +72,12 @@ class CalculateController extends Controller
 
             return response()->json(['price_indexed' => $price_indexed], 200);
         }catch(Throwable $e){
+                Log::error('Error al evaluar expresion', [
+                    'mensaje' => $e->getMessage(),
+                    'archivo' => $e->getFile(),
+                    'linea' => $e->getLine(),
+                    'trace' => $e->getTraceAsString(),
+                ]);
             return response()->json(['Error' => 'Unexpected error'], 500);
         }
     }
